@@ -6,8 +6,8 @@ export var SiuMap = L.Map.extend({
         });
         this.on('contextmenu', function() {/* Do nothing */});
 
-        let mapSize = {width: 8192, height: 5500}
-        let pxTrans = {dx: -73730, dy: -29880, m: 18}
+        let mapSize = {width: 8192, height: 8192}
+        let pxTrans = {dx: 0, dy: 0, m: 1}
         let bounds = [
             [pxTrans.dy, pxTrans.dx],
             [
