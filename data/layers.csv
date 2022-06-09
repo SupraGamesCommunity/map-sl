@@ -1,9 +1,9 @@
 ﻿id,name,defaultActive
-upgrades,Upgrades,x
+upgrades,Upgrades,
 shop,Shop,
-itemChest,Item Chests,
+itemChest,Item Chests,x
 coinChest,Coin Chests,
 coin,Coins,
 brick,Gold Bricks,
-collectable,Collectables,x
-coordinate,XY,
+collectable,Collectables,
+coordinate,XY,x
