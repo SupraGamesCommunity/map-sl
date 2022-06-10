@@ -32,7 +32,7 @@ export class Markers {
             coins.forEach(function(coin, index) {
                 let icon = 'coin', layer = 'coin';
                 if (coin.count > 1) icon = 'coinStash';
-                if (coin.type === 'chest') {icon = 'chest_coin'; layer = 'coinChest';}
+                if (coin.type === 'chest_coin') { icon = 'chest_coin'; layer = 'coinChest'; }
                 if (coin.type === 'grave_volcano') { icon = 'grave_volcano'; layer = 'grave'; }
                 if (coin.type === 'grave_stone') { icon = 'grave_stone'; layer = 'grave'; }
                 if (coin.type === 'grave_wood') { icon = 'grave_wood'; layer = 'grave'; }
