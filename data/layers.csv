@@ -1,7 +1,8 @@
 ﻿id,name,defaultActive
 upgrades,Upgrades,
 shop,Shop,x
-itemChest,Item Chests,x
+closedChest, Chests,x
+itemChest,Item Chests,
 coinChest,Coin Chests,
 coin,Coins,
 grave,Graves,

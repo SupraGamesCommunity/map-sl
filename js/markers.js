@@ -5,23 +5,40 @@ import { SiuMarker } from "./siu-marker.js";
 export class Markers {
     static async init() {
         return Markers._loadUpgrades()
+            .then(Markers._loadChests)
             .then(Markers._loadGold)
             .then(Markers._loadCollectables)
             .then(Markers._addCoordinateExtractionTool);
     }
 
-    static async _loadUpgrades() {
-        $.get('data/upgrades.csv', function(csv) {
-            let upgrades = $.csv.toObjects(csv);
-            upgrades.forEach(function(upgrade) {
-                let icon = 'chest', layer = 'itemChest';
-                if (upgrade.type === 'chestGold') {icon = 'chestGold';}
-                if (upgrade.type === 'shop') {icon = 'shop'; layer = 'shop';}
-                let popup = upgrade.item;
-                if (upgrade.comment) popup += '<br/><i>' + upgrade.comment + '</i>';
+   // static async _loadUpgrades() {
+   //     $.get('data/upgrades.csv', function(csv) {
+   //         let upgrades = $.csv.toObjects(csv);
+   //         upgrades.forEach(function(upgrade) {
+   //             let icon = 'chest', layer = 'itemChest';
+   //             if (upgrade.type === 'chestGold') {icon = 'chestGold';}
+   //             if (upgrade.type === 'shop') {icon = 'shop'; layer = 'shop';}
+   //             let popup = upgrade.item;
+   //             if (upgrade.comment) popup += '<br/><i>' + upgrade.comment + '</i>';
 
-                Markers._createMarker(upgrade, icon, layer, upgrade.item, popup, 'upgrades');
-                if (upgrade.icon) Markers._createMarker(upgrade, upgrade.icon, 'upgrades', upgrade.item, popup, 'upgrades');
+   //             Markers._createMarker(upgrade, icon, layer, upgrade.item, popup, 'upgrades');
+   //             if (upgrade.icon) Markers._createMarker(upgrade, upgrade.icon, 'upgrades', upgrade.item, popup, 'upgrades');
+   //         });
+   //     });
+   // }
+
+    static async _loadChests() {
+        $.get('data/chests.csv', function (csv) {
+            let chests = $.csv.toObjects(csv);
+            chests.forEach(function (upgrade) {
+                let icon = 'chest', layer = 'closedChest';
+                if (chest.type === 'chest_coin') { icon = 'chest_coin'; }
+
+                let popup = chest.item;
+                if (chest.comment) popup += '<br/><i>' + chest.comment + '</i>';
+
+                Markers._createMarker(chest, icon, layer, chest.item, popup, 'chests');
+                if (chest.icon) Markers._createMarker(chest, chest.icon, 'chests', chest.item, popup, 'chests');
             });
         });
     }
