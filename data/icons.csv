@@ -1,4 +1,5 @@
 ﻿id,width,height,x,y,,,
+shop,64,64,,,,,
 coin,25,25,,,,,
 coinStash,60,60,,,,10,14
 armour,64,64,,,,,
