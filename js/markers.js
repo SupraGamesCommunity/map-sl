@@ -32,13 +32,13 @@ export class Markers {
             let chests = $.csv.toObjects(csv);
             chests.forEach(function (upgrade) {
                 let icon = 'chest', layer = 'closedChest';
-                if (chest.type === 'chest_coin') { icon = 'chest_coin'; }
+                if (chests.type === 'chest_coin') { icon = 'chest_coin'; }
 
-                let popup = chest.item;
-                if (chest.comment) popup += '<br/><i>' + chest.comment + '</i>';
+                let popup = chests.item;
+                if (chests.comment) popup += '<br/><i>' + chests.comment + '</i>';
 
-                Markers._createMarker(chest, icon, layer, chest.item, popup, 'chests');
-                if (chest.icon) Markers._createMarker(chest, chest.icon, 'chests', chest.item, popup, 'chests');
+                Markers._createMarker(chests, icon, layer, chests.item, popup, 'chests');
+                if (chests.icon) Markers._createMarker(chests, chests.icon, 'chests', chests.item, popup, 'chests');
             });
         });
     }
