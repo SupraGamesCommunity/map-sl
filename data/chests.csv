@@ -1,6 +1,6 @@
 ﻿type,icon,x,y,z,item,price,comment,image,ytVideo,ytStart,ytEnd
 chest,sword_damage,9824.729,-20440.514,1035.53,2) BuySwordDamage+1_C,,,,,,
-chest,,-1787.864,-26292.451,1278.341,4) BuySwordCriticalDamageChance_C,,,,,,
+chest,sword_damage,-1787.864,-26292.451,1278.341,4) BuySwordCriticalDamageChance_C,,,,,,
 chest,see_health_bar,15246.124,-12127.81,36.179,5) BuyShowHealthbar_C,,,,,,
 chest,,23339.314,-21310.824,-554.905,6) BuyArmor1_C,,,,,,
 chest,,17812.566,-17338.869,1700.886,7) BuyHeartLuck_C,,,,,,
