@@ -11,21 +11,21 @@ export class Markers {
             .then(Markers._addCoordinateExtractionTool);
     }
 
-   // static async _loadUpgrades() {
-   //     $.get('data/upgrades.csv', function(csv) {
-   //         let upgrades = $.csv.toObjects(csv);
-   //         upgrades.forEach(function(upgrade) {
-   //             let icon = 'chest', layer = 'itemChest';
-   //             if (upgrade.type === 'chestGold') {icon = 'chestGold';}
-   //             if (upgrade.type === 'shop') {icon = 'shop'; layer = 'shop';}
-   //             let popup = upgrade.item;
-   //             if (upgrade.comment) popup += '<br/><i>' + upgrade.comment + '</i>';
+    static async _loadUpgrades() {
+        $.get('data/upgrades.csv', function(csv) {
+            let upgrades = $.csv.toObjects(csv);
+            upgrades.forEach(function(upgrade) {
+                let icon = 'chest', layer = 'itemChest';
+                if (upgrade.type === 'chestGold') {icon = 'chestGold';}
+                if (upgrade.type === 'shop') {icon = 'shop'; layer = 'shop';}
+                let popup = upgrade.item;
+                if (upgrade.comment) popup += '<br/><i>' + upgrade.comment + '</i>';
 
-   //             Markers._createMarker(upgrade, icon, layer, upgrade.item, popup, 'upgrades');
-   //             if (upgrade.icon) Markers._createMarker(upgrade, upgrade.icon, 'upgrades', upgrade.item, popup, 'upgrades');
-   //         });
-   //     });
-   // }
+                Markers._createMarker(upgrade, icon, layer, upgrade.item, popup, 'upgrades');
+                if (upgrade.icon) Markers._createMarker(upgrade, upgrade.icon, 'upgrades', upgrade.item, popup, 'upgrades');
+            });
+        });
+    }
 
     static async _loadChests() {
         $.get('data/chests.csv', function (csv) {
