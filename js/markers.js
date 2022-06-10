@@ -30,15 +30,15 @@ export class Markers {
     static async _loadChests() {
         $.get('data/chests.csv', function (csv) {
             let chests = $.csv.toObjects(csv);
-            chests.forEach(function (upgrade) {
+            chests.forEach(function (chest) {
                 let icon = 'chest', layer = 'closedChest';
-                if (chests.type === 'chest_coin') { icon = 'chest_coin'; }
+                if (chest.type === 'chest_coin') { icon = 'chest_coin'; }
 
-                let popup = chests.item;
-                if (chests.comment) popup += '<br/><i>' + chests.comment + '</i>';
+                let popup = chest.item;
+                if (chest.comment) popup += '<br/><i>' + chest.comment + '</i>';
 
-                Markers._createMarker(chests, icon, layer, chests.item, popup, 'chests');
-                if (chests.icon) Markers._createMarker(chests, chests.icon, 'chests', chests.item, popup, 'chests');
+                Markers._createMarker(chest, icon, layer, chest.item, popup, 'chests');
+                if (chest.icon) Markers._createMarker(chest, chest.icon, 'chests', chest.item, popup, 'chests');
             });
         });
     }
