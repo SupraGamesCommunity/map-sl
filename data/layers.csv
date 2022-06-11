@@ -1,10 +1,9 @@
 ﻿id,name,defaultActive
 closedChest,Chests,x
+shop,Shop,x
 upgrades,Upgrades,
-shop,Shop,
 coinChest,Coin Chests,
 coin,Coins,
 grave,Graves,
 collectable,Collectables,
 coordinate,XY,
-test,Test,

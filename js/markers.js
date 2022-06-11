@@ -6,8 +6,7 @@ export class Markers {
     static async init() {
         return Markers._loadChests()
             .then(Markers._loadOpenworld)
-            .then(Markers._loadGold)
-            .then(Markers._loadCollectables)
+            .then(Markers._loadShops)
             .then(Markers._addCoordinateExtractionTool);
     }
 
@@ -35,14 +34,10 @@ export class Markers {
         $.get('data/openworld.csv', function (csv) {
             let openworld = $.csv.toObjects(csv);
             openworld.forEach(function (openworld) {
-                let icon = 'chest', layer = 'test';
 
                 let popup = openworld.item;
                 if (openworld.comment) popup += '<br/><i>' + openworld.comment + '</i>';
 
-                Markers._createMarker(openworld, icon, layer, openworld.item, popup, 'grave');
-                Markers._createMarker(openworld, icon, layer, openworld.item, popup, 'collectable');
-                Markers._createMarker(openworld, icon, layer, openworld.item, popup, 'coin');
                 if (openworld.type === 'grave') Markers._createMarker(openworld, openworld.icon, 'grave', openworld.item, popup, 'grave')
                 if (openworld.type === 'collectable') Markers._createMarker(openworld, openworld.icon, 'collectable', openworld.item, popup, 'collectable')
                 if (openworld.type === 'coin') Markers._createMarker(openworld, openworld.icon, 'coin', openworld.item, popup, 'coin')
@@ -50,33 +45,21 @@ export class Markers {
         });
     }
 
-    //static async _loadGold() {
-    //    $.get('data/gold.csv', function(csv) {
-    //        let coins = $.csv.toObjects(csv);
-    //        coins.forEach(function(coin, index) {
-    //            let icon = 'coin', layer = 'coin';
-    //            if (coin.count > 1) icon = 'coinStash';
-    //            //if (coin.type === 'chest_coin') { icon = 'chest_coin'; layer = 'coinChest'; }
-    //            if (coin.type === 'grave_volcano') { icon = 'grave_volcano'; layer = 'grave'; }
-    //            if (coin.type === 'grave_stone') { icon = 'grave_stone'; layer = 'grave'; }
-    //            if (coin.type === 'grave_wood') { icon = 'grave_wood'; layer = 'grave'; }
-    //            let title = coin.count > 1 ? coin.count + ' Coins' : '1 Coin';
-    //            let popup = title + '&emsp;<small>#' + (index + 2) + '</small>';
-    //            if (coin.comment) popup += '<br/><i>' + coin.comment + '</i>';
-    //
-    //            Markers._createMarker(coin, icon, layer, title, popup, 'gold');
-    //        });
-    //    });
-    //}
+    static async _loadShops() {
+        $.get('data/shops.csv', function (csv) {
+            let shop = $.csv.toObjects(csv);
+            shop.forEach(function (shop) {
+                let icon = 'shop', layer = 'shop';
 
-    //static async _loadCollectables() {
-    //    $.get('data/collectables.csv', function(csv) {
-    //        let collectables = $.csv.toObjects(csv);
-    //        collectables.forEach(function(collectable) {
-    //            Markers._createMarker(collectable, collectable.icon, 'collectable', collectable.comment, collectable.comment, 'collectables');
-    //        });
-    //    });
-    //}
+                let popup = shop.item;
+                if (shop.comment) popup += '<br/><i>' + shop.comment + '</i>';
+
+                Markers._createMarker(shop, icon, layer, shop.item, popup, 'upgrades');
+                if (shop.type === 'powerup') Markers._createMarker(shop, shop.icon, 'upgrades', shop.item, popup, 'upgrades')
+            });
+        });
+    }
+
 
     static async _addCoordinateExtractionTool() {
         L.marker([0, 0], {zIndexOffset: 10000, draggable: true})
