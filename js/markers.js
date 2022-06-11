@@ -41,6 +41,7 @@ export class Markers {
                 if (openworld.type === 'grave') Markers._createMarker(openworld, openworld.icon, 'grave', openworld.item, popup, 'grave')
                 if (openworld.type === 'collectable') Markers._createMarker(openworld, openworld.icon, 'collectable', openworld.item, popup, 'collectable')
                 if (openworld.type === 'coin') Markers._createMarker(openworld, openworld.icon, 'coin', openworld.item, popup, 'coin')
+                if (openworld.type === 'powerup') Markers._createMarker(openworld, openworld.icon, 'upgrades', openworld.item, popup, 'upgrades')
             });
         });
     }
