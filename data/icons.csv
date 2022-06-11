@@ -1,7 +1,7 @@
 ﻿id,width,height,x,y,,,
 shop,64,64,,,,,
 coin,25,25,,,,,
-coinStash,60,60,,,,10,14
+coinStash,50,50,,,,,
 armor,64,64,,,,,
 beam,64,64,,,,,
 belt,64,64,,,,,
