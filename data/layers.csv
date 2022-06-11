@@ -1,8 +1,9 @@
 ﻿id,name,defaultActive
 closedChest,Chests,x
 shop,Shop,x
+collectable,Collectables,x
 upgrades,Upgrades,
-collectable,Collectables,
+misc,Miscellaneous,
 coinChest,Coin Chests,
 coin,Coins,
 grave,Graves,

@@ -5,7 +5,7 @@ import { SiuMarker } from "./siu-marker.js";
 export class Markers {
     static async init() {
         return Markers._loadChests()
-            .then(Markers._loadOpenworld)
+            .then(Markers._loadCollectables)
             .then(Markers._loadShops)
             .then(Markers._addCoordinateExtractionTool);
     }
@@ -24,24 +24,26 @@ export class Markers {
                 Markers._createMarker(chest, icon, layer, chest.item, popup, 'collectable');
                 Markers._createMarker(chest, icon, layer, chest.item, popup, 'coinChest');
                 if (chest.type === 'powerup') Markers._createMarker(chest, chest.icon, 'upgrades', chest.item, popup, 'upgrades')
-                if (chest.type === 'collectable') Markers._createMarker(chest, chest.icon, 'collectable', chest.item, popup, 'collectable')
+                if (chest.type === 'collectable') Markers._createMarker(chest, chest.icon, 'misc', chest.item, popup, 'misc')
                 if (chest.type === 'coin') Markers._createMarker(chest, chest.icon, 'coinChest', chest.item, popup, 'coinChest')
             });
         });
     }
 
-    static async _loadOpenworld() {
-        $.get('data/openworld.csv', function (csv) {
-            let openworld = $.csv.toObjects(csv);
-            openworld.forEach(function (openworld) {
+    static async _loadCollectables() {
+        $.get('data/collectables.csv', function (csv) {
+            let collectable = $.csv.toObjects(csv);
+            collectable.forEach(function (collectable) {
+                let popup = collectable.item;
+                if (collectable.comment) popup += '<br/><i>' + collectable.comment + '</i>';
 
-                let popup = openworld.item;
-                if (openworld.comment) popup += '<br/><i>' + openworld.comment + '</i>';
+                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'awesome', 'collectable', collectable.item, popup, 'collectable')
+                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'awesome', 'collectable', collectable.item, popup, 'collectable')
 
-                if (openworld.type === 'grave') Markers._createMarker(openworld, openworld.icon, 'grave', openworld.item, popup, 'grave')
-                if (openworld.type === 'collectable') Markers._createMarker(openworld, openworld.icon, 'collectable', openworld.item, popup, 'collectable')
-                if (openworld.type === 'coin') Markers._createMarker(openworld, openworld.icon, 'coin', openworld.item, popup, 'coin')
-                if (openworld.type === 'powerup') Markers._createMarker(openworld, openworld.icon, 'upgrades', openworld.item, popup, 'upgrades')
+                if (collectable.type === 'grave') Markers._createMarker(collectable, collectable.icon, 'grave', collectable.item, popup, 'grave')
+                if (collectable.type === 'collectable') Markers._createMarker(collectable, collectable.icon, 'misc', collectable.item, popup, 'misc')
+                if (collectable.type === 'coin') Markers._createMarker(collectable, collectable.icon, 'coin', collectable.item, popup, 'coin')
+                if (collectable.type === 'powerup') Markers._createMarker(collectable, collectable.icon, 'upgrades', collectable.item, popup, 'upgrades')
             });
         });
     }
