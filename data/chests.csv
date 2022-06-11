@@ -2,7 +2,7 @@
 powerup,sword_damage,9824.729,-20440.514,1035.53,Sword Damage +1,,,,,,
 powerup,sword_damage,-1787.864,-26292.451,1278.341,4) BuySwordCriticalDamageChance_C,,,,,,
 powerup,see_health_bar,15246.124,-12127.81,36.179,Health Bar,,,,,,
-powerup,armor,23339.314,-21310.824,-554.905,Armor,,,,,,
+powerup,armour,23339.314,-21310.824,-554.905,Armor,,,,,,
 powerup,gun_yellow,17812.566,-17338.869,1700.886,7) BuyHeartLuck_C,,,,,,
 powerup,gun_yellow,4222.514,-23085.871,-2343.439,8) BuySwordDamage+3_C,,,,,,
 powerup,gun_yellow,632.224,-34133.496,-388.432,11) BuyNumberRising_C,,,,,,
