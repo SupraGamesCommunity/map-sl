@@ -16,6 +16,8 @@ export var SiuMap = L.Map.extend({
             ]
         ];
         L.imageOverlay('img/map.jpg', bounds).addTo(this);
+        L.imageOverlay('img/pad_map.png', bounds).addTo(this);
+        L.imageOverlay('img/pipe_map.png', bounds).addTo(this);
         this.fitBounds(bounds);
     }
 });

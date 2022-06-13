@@ -10,7 +10,6 @@ export class Markers {
             .then(Markers._addCoordinateExtractionTool);
     }
 
-
     static async _loadChests() {
         $.get('data/chests.csv', function (csv) {
             let chest = $.csv.toObjects(csv);
