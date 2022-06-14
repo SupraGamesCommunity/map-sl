@@ -36,8 +36,8 @@ export class Markers {
                 let popup = collectable.item;
                 if (collectable.comment) popup += '<br/><i>' + collectable.comment + '</i>';
 
-                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'awesome', 'collectable', collectable.item, popup, 'collectable')
-                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'awesome', 'collectable', collectable.item, popup, 'collectable')
+                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable')
+                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable')
 
                 if (collectable.type === 'grave') Markers._createMarker(collectable, collectable.icon, 'grave', collectable.item, popup, 'grave')
                 if (collectable.type === 'collectable') Markers._createMarker(collectable, collectable.icon, 'misc', collectable.item, popup, 'misc')
