@@ -1,5 +1,6 @@
 export var SiuMarker = L.Marker.extend({
     options: {
+        spoilerFree: false,
         found: false,
         popupText: null,
         popupImage: null,
@@ -10,7 +11,11 @@ export var SiuMarker = L.Marker.extend({
         L.Marker.prototype.initialize.apply(this, arguments);
 
         this.on('contextmenu', this._toggleIcon);
-        this.bindPopup(() => this._generatePopup());
+        if (this.options.spoilerFree) {
+            this.options.title = '';
+        } else {
+            this.bindPopup(() => this._generatePopup());
+        }
     },
 
     onAdd: function() {

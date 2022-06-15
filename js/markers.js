@@ -36,8 +36,8 @@ export class Markers {
                 let popup = collectable.item;
                 if (collectable.comment) popup += '<br/><i>' + collectable.comment + '</i>';
 
-                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable')
-                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable')
+                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable', true)
+                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable', true)
 
                 if (collectable.type === 'grave') Markers._createMarker(collectable, collectable.icon, 'grave', collectable.item, popup, 'grave')
                 if (collectable.type === 'collectable') Markers._createMarker(collectable, collectable.icon, 'misc', collectable.item, popup, 'misc')
@@ -76,9 +76,9 @@ export class Markers {
             });
     }
 
-    static _createMarker(data, icon, layer, title, popup, imageFolder) {
+    static _createMarker(data, icon, layer, title, popup, imageFolder, spoilerFree) {
         let lat = -parseInt(data.y, 10), lng = parseInt(data.x, 10);
-        return new SiuMarker([lat, lng], {icon: Icons.get(icon), title: title})
+        return new SiuMarker([lat, lng], {icon: Icons.get(icon), title: title, spoilerFree: spoilerFree})
             .addTo(Layers.get(layer))
             .setPopupText(popup)
             .setPopupImage(imageFolder, data.image)
