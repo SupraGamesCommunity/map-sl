@@ -1,6 +1,6 @@
 import { Layers } from "./layers.js";
 import { Icons } from "./icons.js";
-import { SiuMarker } from "./siu-marker.js";
+import { MapMarker } from "./map-marker.js";
 
 export class Markers {
     static async init() {
@@ -78,7 +78,7 @@ export class Markers {
 
     static _createMarker(data, icon, layer, title, popup, imageFolder, spoilerFree) {
         let lat = -parseInt(data.y, 10), lng = parseInt(data.x, 10);
-        return new SiuMarker([lat, lng], {icon: Icons.get(icon), title: title, spoilerFree: spoilerFree})
+        return new MapMarker([lat, lng], {icon: Icons.get(icon), title: title, spoilerFree: spoilerFree})
             .addTo(Layers.get(layer))
             .setPopupText(popup)
             .setPopupImage(imageFolder, data.image)

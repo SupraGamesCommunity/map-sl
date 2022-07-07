@@ -1,4 +1,4 @@
-export var SiuMarker = L.Marker.extend({
+export var MapMarker = L.Marker.extend({
     options: {
         spoilerFree: false,
         found: false,
