@@ -61,7 +61,7 @@ export var MapMarker = L.Marker.extend({
     },
 
     _toggleIcon: function() {
-        this.options.found = !this.options.found;
+	this.options.found = !this.options.found;
         this.updateFoundStatus();
     },
 
