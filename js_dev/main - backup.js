@@ -13,7 +13,8 @@ Layers.init(map)
 
 
 
-window.saveloading = false;
+
+
 window.mapref = map;
 window.mapmarkers = Markers;
 
@@ -21,12 +22,12 @@ var blBar = document.createElement("div");
 blBar.className = "leaflet-bar leaflet-control";
 blBar.style = "width:250px;";
 
-
-var inputElem = document.createElement("input");
-inputElem.style = "width:100px;";
-inputElem.type = "file";
-inputElem.onchange = function () { window.loadSavefile(); };
-blBar.appendChild(inputElem);
+var loadButton = document.createElement("a");
+loadButton.href = "#";
+loadButton.style = "width:100px;";
+loadButton.innerText = "Load savefile";
+loadButton.onclick = function () { window.promptToLoadSave(); };
+blBar.appendChild(loadButton);
 
 var toggleButton = document.createElement("a");
 toggleButton.href = "#";
@@ -41,7 +42,27 @@ window.toggleFoundVisible = function (){
 	if(document.styleSheets[1].rules[2].style.visibility == "") { document.styleSheets[1].rules[2].style.visibility = "hidden" } else { document.styleSheets[1].rules[2].style.visibility = "" }
 }
 
+window.loadChestData = async function () {
+	var [savefile] = await window.showOpenFilePicker();
+	var thefile = await savefile.getFile();
+	var thecontents = await thefile.arrayBuffer();
+	var thetext = new TextDecoder("latin1").decode(thecontents);
+	var chests = thetext.split("/Game/FirstPersonBP/Maps/Map.Map:PersistentLevel.Chest");
+	chests.shift();
+	var x;
+	for (x=0; x<chests.length; x++) {
+	    chests[x] = "Chest" + chests[x].split("/")[0].split("\x00", 2)[0].split("_")[0];
+	};
+	return chests;
+}
 
+window.promptToLoadSave = async function () {
+	var openedChests = await window.loadChestData();
+	var x;
+	for (x=0; x<openedChests.length; x++) {
+		window.markItemFound(openedChests[x]);
+	};
+}
 
 window.markItemFound = function (id) {
 	var elems = $('img[alt="' + id + '"]');
@@ -50,37 +71,3 @@ window.markItemFound = function (id) {
 		elems[x].classList.add('found');
 	}
 }
-
-window.loadSavefile = function () {
-    let file = $('input[type=file]')[0].files[0];
-    let self = this;
-    let ready = false;
-    let result = '';
-
-    const sleep = function (ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    self.readAsText = async function() {
-        while (ready === false) {
-          await sleep(100);
-        }
-        return result;
-    }    
-
-    const reader = new FileReader();
-    reader.onloadend = function(evt) {
-        result = evt.target.result;
-	var chests = result.split("/Game/FirstPersonBP/Maps/Map.Map:PersistentLevel.Chest");
-	chests.shift();
-	var x;
-	for (x=0; x<chests.length; x++) {
-	    chests[x] = "Chest" + chests[x].split("/")[0].split("\x00", 2)[0].split("_")[0];
-	    window.markItemFound(chests[x]);
-	};
-
-        ready = true;
-    };
-
-    reader.readAsText(file, 'latin1');
-  }
