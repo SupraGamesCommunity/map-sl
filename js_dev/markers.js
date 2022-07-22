@@ -44,7 +44,7 @@ export class Markers {
 
                 if (collectable.type === 'grave') Markers._createMarker(collectable, collectable.icon, 'grave', collectable.item, popup, 'grave')
                 if (collectable.type === 'collectable') Markers._createMarker(collectable, collectable.icon, 'misc', collectable.item, popup, 'misc')
-                if (collectable.type === 'coin') Markers._createMarker(collectable, collectable.icon, 'coin', collectable.item, popup, 'coin')
+                if (collectable.type === 'coin') Markers._createMarker(collectable, collectable.icon, 'coin', collectable.item, popup, 'coin', null, collectable.id)
                 if (collectable.type === 'powerup') Markers._createMarker(collectable, collectable.icon, 'upgrades', collectable.item, popup, 'upgrades')
             });
         });

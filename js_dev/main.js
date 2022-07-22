@@ -77,7 +77,16 @@ window.loadSavefile = function () {
 	for (x=0; x<chests.length; x++) {
 	    chests[x] = "Chest" + chests[x].split("/")[0].split("\x00", 2)[0].split("_")[0];
 	    window.markItemFound(chests[x]);
-	};
+        };
+        var coins = result.split("/Game/FirstPersonBP/Maps/Map.Map:PersistentLevel.Coin");
+        coins.shift();
+        var x;
+        for (x = 0; x < coins.length; x++) {
+            coins[x] = "Coin" + coins[x].split("/")[0].split("\x00", 2)[0].split("_")[0];
+            window.markItemFound(coins[x]);
+        };
+        var physicalCoin = result.split("/Game/FirstPersonBP/Maps/Map.Map:PersistentLevel.PhysicalCoin");
+        physicalCoin.shift();
 
         ready = true;
     };
