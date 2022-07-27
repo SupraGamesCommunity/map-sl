@@ -272,10 +272,10 @@ class UEReadHelper {
 		var tCheck = 0;
 		switch(type){
 	                case "DateTime":
-	                	retVal = this.getInt64(); //this needs to be converted from a .net 64-bit datetime to a js date object
+	                	retVal.value = this.getInt64(); //this needs to be converted from a .net 64-bit datetime to a js date object
 	                	break;
 	                case "Guid":
-	                	retVal = this.getGuid();
+	                	retVal.value = this.getGuid();
 	                	break;
 	                case "Vector":
 	                case "Rotator":
