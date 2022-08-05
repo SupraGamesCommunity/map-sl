@@ -13,29 +13,37 @@ Layers.init(map)
 
 
 
-window.saveloading = false;
 window.mapref = map;
 window.mapmarkers = Markers;
 
 var blBar = document.createElement("div");
 blBar.className = "leaflet-bar leaflet-control";
-blBar.style = "width:250px;";
+blBar.style = "width:150px; border:none;";
 
 
 var inputElem = document.createElement("input");
-inputElem.style = "width:100px;";
+inputElem.style = "width:150px;color:transparent;";
 inputElem.type = "file";
-inputElem.onchange = function () { window.testSaveFile(); };
+inputElem.onchange = function () { window.loadSaveFile(); };
 blBar.appendChild(inputElem);
 
 var toggleButton = document.createElement("a");
 toggleButton.href = "#";
-toggleButton.style = "width:100px;";
+toggleButton.style = "width:150px;";
 toggleButton.innerText = "Toggle found visible";
 toggleButton.onclick = function () { window.toggleFoundVisible(); };
 blBar.appendChild(toggleButton);
 
+var shareURLButton = document.createElement("a");
+shareURLButton.href = "#";
+shareURLButton.style = "width:150px;";
+shareURLButton.innerText = "Share Map View";
+shareURLButton.onclick = function () { window.showSharableURL(); };
+blBar.appendChild(shareURLButton);
+
+
 $('div[class="leaflet-bottom leaflet-left"]')[0].appendChild(blBar);
+
 
 window.toggleFoundVisible = function (){
 	if(document.styleSheets[1].rules[2].style.visibility == "") { document.styleSheets[1].rules[2].style.visibility = "hidden" } else { document.styleSheets[1].rules[2].style.visibility = "" }
@@ -53,7 +61,7 @@ window.markItemFound = function (id) {
 
 
 
-window.testSaveFile = function () {
+window.loadSaveFile = function () {
     let file = $('input[type=file]')[0].files[0];
     let self = this;
     let ready = false;
@@ -304,3 +312,24 @@ class UEReadHelper {
 	}
 
 }
+
+window.zoomToURL = function() {
+	var p = {};
+	window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) { p[key] = value; });
+	if(p.neLat){ window.mapref.fitBounds(L.latLngBounds(L.latLng(p.neLat, p.neLng), L.latLng(p.swLat, p.swLng))) };
+}
+
+window.showSharableURL = function() {
+	var retVal = window.location.toString().split("?")[0];
+	var bnds = window.mapref.getBounds();
+	retVal = retVal + '?neLat=' + bnds._northEast.lat + '&neLng=' + bnds._northEast.lng + '&swLat=' + bnds._southWest.lat + '&swLng=' + bnds._southWest.lng
+	var inputc = document.body.appendChild(document.createElement("input"));
+	inputc.value = retVal;
+	inputc.focus();
+	inputc.select();
+	document.execCommand('copy');
+	inputc.parentNode.removeChild(inputc);
+	alert("A sharable URL has been copied to your clipboard.");
+}
+
+window.zoomToURL();
