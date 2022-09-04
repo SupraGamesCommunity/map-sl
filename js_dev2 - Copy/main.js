@@ -87,6 +87,14 @@ window.loadSaveFile = function () {
 
 	window.loadedSave = new UESaveObject(result);
 	console.log(window.loadedSave);
+	var toRemove = loadedSave.Properties.find(function (x) { return x.name=="ThingsToRemove" }).value.value
+	var el;
+	var x;
+	for( x = 0; x < toRemove.length; x++ ){
+		el = toRemove[x].split(".").pop();
+		console.log(el);
+		if ( el != "None" ){ markItemFound(el) };
+	}
 
 
 //==================================================

@@ -3,7 +3,9 @@ import { Icons } from "./icons.js";
 import { MapMarker } from "./map-marker.js";
 
 export class Markers {
+
     static async init() {
+	window.mapmarkerscache = [];
         return Markers._loadChests()
             .then(Markers._loadCollectables)
             .then(Markers._loadShops)
@@ -19,12 +21,13 @@ export class Markers {
                 let popup = chest.item;
                 if (chest.comment) popup += '<br/><i>' + chest.comment + '</i>';
 
-                Markers._createMarker(chest, icon, layer, chest.item, popup, 'upgrades');
-                Markers._createMarker(chest, icon, layer, chest.item, popup, 'collectable');
-                Markers._createMarker(chest, icon, layer, chest.item, popup, 'coinChest');
-                if (chest.type === 'powerup') Markers._createMarker(chest, chest.icon, 'upgrades', chest.item, popup, 'upgrades')
-                if (chest.type === 'collectable') Markers._createMarker(chest, chest.icon, 'misc', chest.item, popup, 'misc')
-                if (chest.type === 'coin') Markers._createMarker(chest, chest.icon, 'coinChest', chest.item, popup, 'coinChest')
+                //Markers._createMarker(chest, icon, layer, chest.item, popup, 'upgrades', null, chest.id);
+                //Markers._createMarker(chest, icon, layer, chest.item, popup, 'collectable', null, chest.id);
+                //Markers._createMarker(chest, icon, layer, chest.item, popup, 'coinChest', null, chest.id);
+		Markers._createMarker(chest, icon, layer, chest.item, popup, null, null, chest.id);
+                if (chest.type === 'powerup') Markers._createMarker(chest, chest.icon, 'upgrades', chest.item, popup, 'upgrades', null, chest.id)
+                if (chest.type === 'collectable') Markers._createMarker(chest, chest.icon, 'misc', chest.item, popup, 'misc', null, chest.id)
+                if (chest.type === 'coin') Markers._createMarker(chest, chest.icon, 'coinChest', chest.item, popup, 'coinChest', null, chest.id)
             });
         });
     }
@@ -36,13 +39,13 @@ export class Markers {
                 let popup = collectable.item;
                 if (collectable.comment) popup += '<br/><i>' + collectable.comment + '</i>';
 
-                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable', true)
-                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable', true)
+                if (collectable.type === 'collectable') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable', true, collectable.id)
+                if (collectable.type === 'powerup') Markers._createMarker(collectable, 'question_mark', 'collectable', collectable.item, popup, 'collectable', true, collectable.id)
 
-                if (collectable.type === 'grave') Markers._createMarker(collectable, collectable.icon, 'grave', collectable.item, popup, 'grave')
-                if (collectable.type === 'collectable') Markers._createMarker(collectable, collectable.icon, 'misc', collectable.item, popup, 'misc')
-                if (collectable.type === 'coin') Markers._createMarker(collectable, collectable.icon, 'coin', collectable.item, popup, 'coin')
-                if (collectable.type === 'powerup') Markers._createMarker(collectable, collectable.icon, 'upgrades', collectable.item, popup, 'upgrades')
+                if (collectable.type === 'grave') Markers._createMarker(collectable, collectable.icon, 'grave', collectable.item, popup, 'grave', null, collectable.id)
+                if (collectable.type === 'collectable') Markers._createMarker(collectable, collectable.icon, 'misc', collectable.item, popup, 'misc', null, collectable.id)
+                if (collectable.type === 'coin') Markers._createMarker(collectable, collectable.icon, 'coin', collectable.item, popup, 'coin', null, collectable.id)
+                if (collectable.type === 'powerup') Markers._createMarker(collectable, collectable.icon, 'upgrades', collectable.item, popup, 'upgrades', null, collectable.id)
             });
         });
     }
@@ -57,7 +60,7 @@ export class Markers {
                 if (shop.comment) popup += '<br/><i>' + shop.comment + '</i>';
 
                 Markers._createMarker(shop, icon, layer, shop.item, popup, 'upgrades');
-                if (shop.type === 'powerup') Markers._createMarker(shop, shop.icon, 'upgrades', shop.item, popup, 'upgrades')
+                if (shop.type === 'powerup') Markers._createMarker(shop, shop.icon, 'upgrades', shop.item, popup, 'upgrades', null, shop.id)
             });
         });
     }
@@ -76,12 +79,14 @@ export class Markers {
             });
     }
 
-    static _createMarker(data, icon, layer, title, popup, imageFolder, spoilerFree) {
+    static _createMarker(data, icon, layer, title, popup, imageFolder, spoilerFree, markerID) {
         let lat = -parseInt(data.y, 10), lng = parseInt(data.x, 10);
-        return new MapMarker([lat, lng], {icon: Icons.get(icon), title: title, spoilerFree: spoilerFree})
-            .addTo(Layers.get(layer))
-            .setPopupText(popup)
-            .setPopupImage(imageFolder, data.image)
-            .setPopupYouTube(data.ytVideo, data.ytStart, data.ytEnd);
+	var retVal = new MapMarker([lat, lng], {icon: Icons.get(icon), title: title, spoilerFree: spoilerFree, uniqueID: markerID, alt: markerID})
+        retVal.addTo(Layers.get(layer))
+        retVal.setPopupText(popup)
+        retVal.setPopupImage(imageFolder, data.image)
+        retVal.setPopupYouTube(data.ytVideo, data.ytStart, data.ytEnd);
+	window.mapmarkerscache[markerID] = retVal;
+        return retVal
     }
 }
