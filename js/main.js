@@ -20,6 +20,13 @@ var blBar = document.createElement("div");
 blBar.className = "leaflet-bar leaflet-control";
 blBar.style = "width:150px; border:none;";
 
+var saveInfoButton = document.createElement("a");
+saveInfoButton.class = "button";
+saveInfoButton.href = "#saveInfoPopup";
+saveInfoButton.style = "width:150px;";
+saveInfoButton.innerText = "Savefile Instructions";
+//toggleButton.onclick = function () {  };
+blBar.appendChild(saveInfoButton);
 
 var inputElem = document.createElement("input");
 inputElem.style = "width:150px;color:transparent;";
@@ -351,6 +358,15 @@ window.showSharableURL = function() {
 	document.execCommand('copy');
 	inputc.parentNode.removeChild(inputc);
 	alert("A sharable URL has been copied to your clipboard.");
+}
+
+window.putSavefileLocationOnClipboard = function() {
+	var inputc = document.body.appendChild(document.createElement("input"));
+	inputc.value = "%LocalAppData%\\Supraland\\Saved\\SaveGames\\";
+	inputc.focus();
+	inputc.select();
+	document.execCommand('copy');
+	inputc.parentNode.removeChild(inputc);
 }
 
 window.zoomToURL();
